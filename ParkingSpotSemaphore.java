@@ -23,7 +23,7 @@ public class ParkingSpotSemaphore { // Because the shared resource between car t
         notify(); // For the waiting threads(cars)...
     }
 
-    public int getAvailableSpots(){
+    public synchronized int getAvailableSpots(){
         return SpotAvailable;
     }
 }
