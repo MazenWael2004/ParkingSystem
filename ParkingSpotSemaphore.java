@@ -1,7 +1,7 @@
-public class ParkingSpotSemaphore { // Because the shared resource between car threads is the parking spot.
+public class EnterParkingSpotSemaphore { // Because the shared resource between car threads is the parking spot.
     private int SpotAvailable;
 
-    public ParkingSpotSemaphore(int spots){
+    public EnterParkingSpotSemaphore(int spots){
         this.SpotAvailable = spots;
     }
 
