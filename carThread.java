@@ -18,6 +18,19 @@ public class carThread extends Thread {
         this.waiting_time = 0;
 
     }
+    // constructor without semaphore to represent data of cars only 
+    public carThread(int id, int arrival_time, int parking_duration, int gate_id) {
+        
+        this.id = id;
+        this.arrival_time = arrival_time;
+
+        this.parking_duration= parking_duration;
+
+        this.parking_duration = parking_duration;
+        this.gate_id = gate_id;
+        this.waiting_time = 0;
+
+    }
 
     @Override
     public void run() {
