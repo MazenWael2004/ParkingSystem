@@ -7,7 +7,6 @@ public class carThread extends Thread {
     public carThread( int id,double arrival_time,double parking_duration,String gate_name) {
         this.id = id;
         this.arrival_time = arrival_time;
-        this.id = id;
         this.parking_duration= parking_duration;
         this.gate_name = gate_name;
     }
