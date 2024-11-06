@@ -22,7 +22,7 @@ class Parser{
             while ((line = reader.readLine()) != null) {
                 //input format in assignment is  Gate 1, Car 0, Arrive 0, Parks 3// so I split each part we need to store in each car thread
                 String[] inputData= line.split(", ");//remove , to easy parse the data we need
-                int gateId = Integer.parseInt(inputData[0].split(" ")[1]);//Car 0 index 1 is the gate id 
+                int gateId = Integer.parseInt(inputData[0].split(" ")[1]);//Gate index 1 is the gate id 
                 int carId = Integer.parseInt(inputData[1].split(" ")[1]); //Car 0
                 int arrivalTime = Integer.parseInt(inputData[2].split(" ")[1]);
                 int parkDuration = Integer.parseInt(inputData[3].split(" ")[1]);
