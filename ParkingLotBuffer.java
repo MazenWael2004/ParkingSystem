@@ -18,6 +18,10 @@ public class ParkingLotBuffer {
         this.size = size;
     }
     public void produce(Object value){
+        // add car sleep for arrival time here
+        //add Gate Semaphore here, will probably we switch case for all Gates
+        //can use ParkingSemaphore array for this
+        
             FreeSpaces.AcquireSpot();
         
             //enter critical section
