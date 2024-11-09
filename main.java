@@ -11,13 +11,20 @@ public class main {
     };
     
     Parser p = new Parser("file.txt");
-    list<carThread> carThreads =p. readDateAndStoretoCarThread();
+    List<carThread> carThreads =p. readDateAndStoretoCarThread();
     int size = 4;
-    ParkingLotBuffer parkingLotBuffer = new ParkingLotBuffer(carThreads.length(), size);
-    producer enter = new producer(parkingLotBuffer, carThreads);
-    consumer exit = new consumer(parkingLotBuffer, carThreads);
+    ParkingLotBuffer ParkingLotBuffer = new ParkingLotBuffer(carThreads.size(), size);
+    producer enter = new producer(ParkingLotBuffer, carThreads);
+    consumer exit = new consumer(ParkingLotBuffer, carThreads);
     enter.start();
     exit.start();
+    try{
+        enter.join();
+        exit.join();
+    }
+    catch(InterruptedException e){
+        e.printStackTrace();
+    }
 
 
     }

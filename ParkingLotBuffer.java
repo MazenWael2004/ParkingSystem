@@ -1,50 +1,71 @@
 import java.util.List;
 
 public class ParkingLotBuffer {
-    private int TotalCars; //used to limit while loops
-                           //should be gotten from parser
-    private int carsProduced;
-    private int carsConsumed;
+
     private int size;
-    private Object spots[] = new Object[size];
+    private int counter;
+    private carThread spots[];
     private int inputPointer = 0;
     private int outputPointer = 0;
     //assume semaphore implementation is class parkingSemaphore
     ParkingSemaphore FreeSpaces = new ParkingSemaphore(size);
     ParkingSemaphore parkedCars = new ParkingSemaphore(0);
 
-    public ParkingLotBuffer(int totalNumberOfCars, int size ){
-        this.TotalCars = totalNumberOfCars;
+    public ParkingLotBuffer( int size ){
         this.size = size;
+        spots = new carThread[size];
+        counter = 0;
     }
-    public void produce(Object value){
+    public void produce(carThread value){
+        
             FreeSpaces.AcquireSpot();
         
             //enter critical section
             synchronized(this){
-            spots[inputPointer] = value;
-            inputPointer = (inputPointer + 1) % size;
-            //log what needs to be logged by parkingManager
+                for(int i = 0; i < size; i++){
+                    if(!spots[i].isRunning ||spots[i] == null){
+                        spots[i] = value;
+                        counter++;
+                        break;
+                    }
+                    
+
+                }
             }
             //exit critical section
-            carsProduced++;
+
+            //output here
+
+
             parkedCars.ExitSpot(); //signal parkedCars semaphore to take unparked cars in lot
                                 // ie signal method
     }
-    public void consume(Object value){
+    public void consume(carThread value){
         parkedCars.AcquireSpot(); // semaphore wait method
         //enter critical section
         synchronized(this){
-        value = spots[outputPointer]; 
-        outputPointer = (outputPointer + 1) % size;
-        // ParkingManager log
+        value = spots[outputPointer];
+        for(int i = 0; i < size; i++){
+            if(!value.isParked && !value.isRunning) {
+                outputPointer = (outputPointer + 1) % size;
+                counter --;
+                break;
+        }
+        
+        }
         }
         // exit critical section
-        carsConsumed++;
+        // ParkingManager log
         FreeSpaces.ExitSpot(); // semaphore ExitSpot method
         // make sure car thread terminates here
     }
-
-    
-    
+    public int getCounter(){
+        return counter;
+    }
+    public int getSize(){
+        return size;
+    }
+    public carThread[] getSpots(){
+        return spots;
+    } 
 }

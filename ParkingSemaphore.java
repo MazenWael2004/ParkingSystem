@@ -1,9 +1,6 @@
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class ParkingSemaphore { // Because the shared resource between car threads is the parking spot.
     private int AvailableSpots;
-    Queue<Thread> carQueue = new LinkedList<>();
 
     public ParkingSemaphore(int spots){
         this.AvailableSpots = spots;
